@@ -61,7 +61,12 @@ public:
 
 template <class ValType>
 TVector<ValType>::TVector(int s, int si)
-{
+{StartIndex=si;
+Size=s;
+if(s>0)
+pVector=new ValType[s];
+else
+throw s;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> //конструктор копирования
@@ -155,8 +160,10 @@ public:
 };
 
 template <class ValType>
-TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
-{
+TMatrix<ValType>::TMatrix(int s=10): TVector<TVector<ValType> >(s)
+{for (int i=0; i<s; i++){
+TVector<ValType> a(s-i,i);
+pVector[i]=a;}
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // конструктор копирования
@@ -185,11 +192,13 @@ TMatrix<ValType>& TMatrix<ValType>::operator=(const TMatrix<ValType> &mt)
 template <class ValType> // сложение
 TMatrix<ValType> TMatrix<ValType>::operator+(const TMatrix<ValType> &mt)
 {
+	return TVector <TVector<ValType>::operator +(mt);
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // вычитание
 TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType> &mt)
 {
+	return TVector <TVector<ValType>::operator -(mt);
 } /*-------------------------------------------------------------------------*/
 
 // TVector О3 Л2 П4 С6
